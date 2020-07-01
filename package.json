@@ -1,0 +1,14 @@
+{
+  "name": "tour",
+  "version": "1.0.0",
+  "description": "A node project, API, mongoose , mongodb , express ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Acquah Samuel",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
