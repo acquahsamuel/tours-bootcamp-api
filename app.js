@@ -1,27 +1,33 @@
-const fs = require("fs");
-const express = require("express");
+const express = require('express')
+const morgan = require('morgan')
 
 const app = express();
 
 /* Middlewares */
 app.use(express.json());
+app.use(morgan('dev'));
 
-const tours = JSON.parse(
-  fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
-);
+const tourRouter = require('./routes/tourRoutes');
+const userRouter = require('./routes/userRoutes');
 
-app.get("/api/v1/tours", (req, res) => {
-  res.status(200).json({
-    status: "success",
-    result: tours.length,
-    data: {
-      tours: tours,
-    },
-  });
-});
+app.use((req, res , next) =>{
+    req.requestTime = new Date().toISOString();
+    next();
+})
 
-const port = 8000 || process.env.PORT;
+app.use('/api/V1/tours', tourRouter);
+app.use('/api/V1/users', userRouter);
 
-app.listen(`${port}`, () => {
-  console.log(`Listening on port ${port}`);
-});
+module.exports = app;
+
+
+/*
+ Representational State Transfer 
+ Enveloping
+ API should be stateless  ** 
+ How stateless API works 
+
+ Routes handler
+ Response Cycle 
+*/
+ 
