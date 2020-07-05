@@ -6,6 +6,7 @@
   "prettier": "prettier-config-standard",
   "scripts": {
     "start:dev": "nodemon server.js",
+    "start:local" : "nodemon server-local.js",
     "start:prod": "NODE_ENV=production nodemon server.js"
   },
   "author": "Acquah Samuel",
@@ -13,6 +14,7 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "mongoose": "^5.5.2",
     "morgan": "^1.10.0",
     "prettier-config-standard": "^1.0.1"
   },
@@ -26,5 +28,8 @@
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
     "prettier": "^1.17.0"
+  },
+  "engines": {
+    "node" : ">=10.0.0"
   }
 }
