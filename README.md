@@ -33,11 +33,11 @@ config.env file
 
 The config.env file contains your key and sensitive data
 create your config.env and add your account details 
-NODE_ENV=
-PORT=
-DATABASE=
-DATABASE_LOCAL=
-DATABASE_PASSWORD= 
+- NODE_ENV=
+- PORT=
+- DATABASE=
+- DATABASE_LOCAL=
+- DATABASE_PASSWORD= 
  
 
 ### testing the whole application
