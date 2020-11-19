@@ -5,8 +5,8 @@ use databaseName
 show collections
 
 db.createCollections("databaseName")
-db.databaseName.find()
-db.databaseName.find().pretty()
+db.tableName.find()
+db.tableName.find().pretty()
 
 db.collection("databaseName").find().limit(5).toArray(function(err, result)
 

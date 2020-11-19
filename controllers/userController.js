@@ -14,6 +14,7 @@ exports.getAllUsers = (req, res) => {
     }
   })
 }
+
 exports.getUser = (req, res) => {
   const id = req.params.id * 1
 

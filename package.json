@@ -6,8 +6,8 @@
   "prettier": "prettier-config-standard",
   "scripts": {
     "start:dev": "nodemon server.js",
-    "start:local" : "nodemon server-local.js",
-    "start:prod": "NODE_ENV=production nodemon server.js"
+    "start:prod": "NODE_ENV=production nodemon server.js",
+    "debug": "ndb server.js"
   },
   "author": "Acquah Samuel",
   "license": "MIT",
@@ -16,7 +16,8 @@
     "express": "^4.17.1",
     "mongoose": "^5.5.2",
     "morgan": "^1.10.0",
-    "prettier-config-standard": "^1.0.1"
+    "prettier-config-standard": "^1.0.1",
+    "slugify": "^1.4.4"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
@@ -30,6 +31,6 @@
     "prettier": "^1.17.0"
   },
   "engines": {
-    "node" : ">=10.0.0"
+    "node": ">=10.0.0"
   }
 }
