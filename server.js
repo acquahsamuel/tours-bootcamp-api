@@ -1,9 +1,9 @@
-const app = require('./app')
 const dotenv = require('dotenv')
 const connectDB = require('./config/db')
 
 // Load env variables
 dotenv.config({ path: './config/config.env' })
+const app = require('./app')
 
 connectDB()
 

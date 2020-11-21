@@ -31,8 +31,8 @@ deleteOne()
 deleteMany()
 
 
+Keyword
 
-// Complex Queries 
 $lte = less than or equal to
 $lt  = less than 
 
@@ -41,5 +41,20 @@ $gt  = greater than
 
 $or  = or 
 
-
 www.natours.dev
+
+
+/* Complex Queries Sample
+db.tours.find({price : {$lt : 500}, ratingsAverage : {$lt : 4.8} })
+
+
+/* OR QUERY
+db.tours.find({$or : [ {price : {$lt : 500}, ratingsAverage : {$lt : 4.8} } ]} )
+db.tours.find({ $or : [ {price : {$gte : 500 } } , {rating : { $gte : 4.8}} ] })
+db.tours.find({$or : [ {price : {$lt : 500}, ratingsAverage : {$lt : 4.8} } ]} , {name : 1} )
+
+
+/* Update Query 
+*/
+ 
+db.tours.updateOne({ name : "The Snow Adventurer" }, {$set : { name : "Opening the bot"}  })

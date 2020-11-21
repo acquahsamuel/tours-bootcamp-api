@@ -1,26 +1,14 @@
-const mongoose = require('mongoose')
-const dotenv = require('dotenv')
 const fs = require('fs')
-const Tour = require('./../../models/tourModel')
+const dotenv = require('dotenv')
+const connectDB = require('./config/db')
+const Tour = require('./models/tourModel')
 
-dotenv.config({ path: './config.env' })
+dotenv.config({ path: './config/config.env' })
 
-mongoose
-  .connect(process.env.DATABASE_LOCAL, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false
-  })
-  .then(() => {
-    console.log(
-      `Connection to database(development) successful ${
-        process.env.DATABASE_LOCAL
-      }`
-    )
-  })
+connectDB()
 
 const tours = JSON.parse(
-  fs.readFileSync(`${__dirname}/tours-simple.json`, 'utf-8')
+  fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`, 'utf-8')
 )
 
 // Importing data into the database
