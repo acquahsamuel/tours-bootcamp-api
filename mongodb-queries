@@ -58,3 +58,5 @@ db.tours.find({$or : [ {price : {$lt : 500}, ratingsAverage : {$lt : 4.8} } ]} ,
 */
  
 db.tours.updateOne({ name : "The Snow Adventurer" }, {$set : { name : "Opening the bot"}  })
+
+const tours = await Tours.find().where('duration').equals(5).where('difficulty').equals('easy');
