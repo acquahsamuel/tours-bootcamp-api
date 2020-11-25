@@ -28,18 +28,6 @@ The server contains 2 files the
 - Server-local.js for local development configuration
 
 
-## What to fix
-config.env file 
-
-The config.env file contains your key and sensitive data
-create your config.env and add your account details 
-- NODE_ENV=
-- PORT=
-- DATABASE=
-- DATABASE_LOCAL=
-- DATABASE_PASSWORD= 
- 
-
 ### testing the whole application
 Using postman for testing purpose. Testing various endpoints to see if they are working properly
 -  Testing with postman

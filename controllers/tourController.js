@@ -65,7 +65,6 @@ exports.createTour = async (req, res) => {
   }
 }
 
-
 exports.updateTour = async (req, res) => {
   try {
     const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
