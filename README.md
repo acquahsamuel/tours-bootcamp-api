@@ -9,12 +9,12 @@ Check the .gitignore file to see all the files and folders that will be ignore b
 
 ### Files you will be working with:
 
-- <b>Controllers </b> Renders the Application Logic 
-- <b> Dev-data </b>  Contains Images , JSON format data , templates UI (Additional Components )
-- <b> Model </b>  Renders the Business Logic 
-- <b> Public </b> Renders the Application Logic 
-- <b> Routes </b> Renders the Application Logic 
-- <b>Controllers </b> Renders the Application Logic 
+- <b>Controllers </b> 
+- <b> Dev-data </b> 
+- <b> Model </b>  
+- <b> Public </b> 
+- <b> Routes </b> 
+- <b>Controllers </b> 
 
 
 ## Choose your  Server mode  
