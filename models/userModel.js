@@ -23,9 +23,9 @@ const userSchema  = new mongoose.Schema({
     },
     passwordConfirm : {
         type : String,
-        minlength : 5,
+        minlength : 8,
         maxlength : 30,
-        required: [true, 'Please Confirm  password']
+        required: [true, 'Please confirm your password']
     }
 
 })
