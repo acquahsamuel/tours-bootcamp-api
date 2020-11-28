@@ -1,53 +1,60 @@
-const mongoose = require('mongoose');
-const validator = require('validator');
-const bcrypt = require('bcryptjs');
+const mongoose = require('mongoose')
+const validator = require('validator')
+const bcrypt = require('bcryptjs')
 
-
-const userSchema  = new mongoose.Schema({
-    name : {
-        type : String,
-        required : [true, 'Please tell us your name']
+const userSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: [true, 'Please tell us your name']
     },
-    email : {
-        type : String,
-        unique  : true,
-        lowercase : true,
-        required : [true, 'Please tell us your email'],
-        validate : [validator.isEmail, 'Please provide a valid email']
-        
+    email: {
+        type: String,
+        unique: true,
+        lowercase: true,
+        required: [
+            true, 'Please tell us your email'
+        ],
+        validate: [validator.isEmail, 'Please provide a valid email']
     },
-    photo :  String,
-    password : {
-        type : String,
-        minlength : 8,
-        maxlength : 30,
-        required: [true, 'Please provide a password']
+    photo: String,
+    password: {
+        type: String,
+        minlength: 8,
+        maxlength: 30,
+        required: [
+            true, 'Please provide a password'
+        ],
+        select: false
     },
-    passwordConfirm : {
-        type : String,
-        minlength : 8,
-        maxlength : 30,
-        required: [true, 'Please confirm your password'],
-        validate : {
-            /**This only works on Create, Save */
-            validator : function(el){
-                return el === this.password;
+    passwordConfirm: {
+        type: String,
+        minlength: 8,
+        maxlength: 30,
+        required: [
+            true, 'Please confirm your password'
+        ],
+        validate: { /**This only works on Create, Save */
+            validator: function (el) {
+                return el === this.password
             },
-            message : 'Password does not match'
+            message: 'Password does not match'
         }
     }
 })
 
+userSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) 
+        return next()
 
-
-userSchema.pre('save' , async function(next){
-    if(!this.isModified('password')) return next();
-
-    let salt = await bcrypt.genSalt(12);
-    this.password  = await bcrypt.hash(this.password, salt);
-    this.passwordConfirm = undefined;
+    let salt = await bcrypt.genSalt(12)
+    this.password = await bcrypt.hash(this.password, salt)
+    this.passwordConfirm = undefined
     next()
 })
 
+userSchema.methods.correctPassword = async function(candidatePassword, userPassword) {
+    return await bcrypt.compare(candidatePassword, userPassword)
+}
 
-module.exports = mongoose.model('User' ,userSchema)
+
+module.exports = mongoose.model('User', userSchema)
