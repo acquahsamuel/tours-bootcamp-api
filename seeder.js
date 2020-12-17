@@ -7,6 +7,7 @@ dotenv.config({ path: './config/config.env' })
 
 connectDB()
 
+
 const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`, 'utf-8')
 )

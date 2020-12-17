@@ -99,18 +99,14 @@ tourSchema.pre('save', function (next) {
   next()
 })
 
-// tourSchema.pre('save', function(next) {
-// console.log('Will save document...');
-// next();
-// });
-
-// tourSchema.post('save', function(doc, next) { 
-// console.log(doc);
-// next();
-// });
 
 
-// QUERY MIDDLEWARE
+/**
+ * 
+   @QUERY MIDDLEWARE 
+   
+*/ 
+
 // tourSchema.pre('find', function(next) {
 tourSchema.pre(/^find/, function (next) {
   this.find({
