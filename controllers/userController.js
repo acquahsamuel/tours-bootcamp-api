@@ -31,7 +31,7 @@ exports.getUser = catchAsync(async (req, res, next) => {
 })
 
 exports.createUser = catchAsync(async (req, res,next) => {
-  const user = User.create(req.body)
+  const user = await User.create(req.body)
   res.status(201).json({
     status: 'success',
     data: {
@@ -42,7 +42,7 @@ exports.createUser = catchAsync(async (req, res,next) => {
 
 
 exports.updateUser = catchAsync(async(req, res, next) => {
-  const user = User.findByIdAndUpdate(req.params.id , req.body, {
+  const user = await User.findByIdAndUpdate(req.params.id , req.body, {
     new : true,
     runValidators : true
   });
@@ -55,7 +55,7 @@ exports.updateUser = catchAsync(async(req, res, next) => {
 
 
 exports.deleteUser = catchAsync(async (req, res, next) => {
-  const user = User.findById(req.params.id)
+  const user = await User.findByIdAndDelete(req.params.id)
 
   if (!user) {
     return next(new AppError(`No user found with that ID`, 404))

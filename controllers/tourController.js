@@ -112,8 +112,6 @@ exports.updateTour = catchAsync(async (req, res, next) => {
 })
 
 
-
-
 /**
  * @desc           Delete a tour
  * @routes         DELETE api/v1/tours
@@ -127,7 +125,7 @@ exports.deleteTour = catchAsync(async (req, res, next) => {
     if(!tour){
       return next(new AppError(`No tour found with that ID` , 404))
      }
-    res.status(204).json({ status: 'success', data: { } })
+    res.status(200).json({ message: 'success', data: {} })
 })
 
 

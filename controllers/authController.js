@@ -5,6 +5,14 @@ const catchAsync = require('./../utils/catchAsync')
 const AppError = require('./../utils/appError')
 const sendEmail = require('./../utils/email');
 
+
+/**
+ * @desc            Get all tours
+ * @route           GET /api/v1/tours
+ * @access          Public 
+ */
+
+
 const signToken = id => {
   return jwt.sign(
     {
@@ -14,6 +22,14 @@ const signToken = id => {
     { expiresIn: process.env.JWT_EXPIRES_IN }
   )
 }
+
+
+/**
+ * @desc            Get all tours
+ * @route           GET /api/v1/tours
+ * @access          Public 
+ */
+
 
 exports.signup = catchAsync(async (req, res, next) => {
   const newUser = await User.create(req.body)
@@ -28,6 +44,14 @@ exports.signup = catchAsync(async (req, res, next) => {
     }
   })
 })
+
+
+/**
+ * @desc            Get all tours
+ * @route           GET /api/v1/tours
+ * @access          Public 
+ */
+
 
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body
@@ -49,6 +73,15 @@ exports.login = catchAsync(async (req, res, next) => {
   res.status(200).json({ status: 'success', token })
 })
 
+
+
+/**
+ * @desc            Get all tours
+ * @route           GET /api/v1/tours
+ * @access          Public 
+ */
+
+
 exports.protect = catchAsync(async (req, res, next) => {
   /**Getting token and check if it exist */
   let token
@@ -68,8 +101,6 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   /**Verification token Validate token */
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET)
-  console.log(decoded);
-
   
   /**Check if user still exist  */
   const currentUser = await User.findById(decoded.id)
@@ -79,7 +110,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     )
   }
 
-  /**If user changed password after JWT token was issued */
+  /**If user changed password after JWT token was issued (iat = createdAt) */
   if (currentUser.changedPasswordAfter(decoded.iat)) {
     return next(
       new AppError('User recently changed password! Please log in again', 401)
@@ -90,7 +121,17 @@ exports.protect = catchAsync(async (req, res, next) => {
   next()
 })
 
+
+
+/**
+ * @desc            Get all tours
+ * @route           GET /api/v1/tours
+ * @access          Public 
+ */
+
+
 exports.restrictTo = (...roles) => {
+  /**roles is an array ['admin' ,'lead-guide'] */
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
       return next(
@@ -100,6 +141,14 @@ exports.restrictTo = (...roles) => {
     next()
   }
 }
+
+
+/**
+ * @desc            Get all tours
+ * @route           GET /api/v1/tours
+ * @access          Public 
+ */
+
 
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email })
