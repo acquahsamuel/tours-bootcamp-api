@@ -11,16 +11,15 @@ const sendEmail = async options =>{
         //Activate in gmail "less sure app" option
     });
 
-
     const mailOptions = {
         from :'Micropple james <micropplejame01@gmail.com>',
         to : options.email,
         subject : options.subject,
-        text : options.message
+        text : options.message,
+        // html : 
     }
 
   await transporter.sendMail(mailOptions);
-
 }
 
 module.exports = sendEmail;
