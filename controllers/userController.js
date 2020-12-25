@@ -6,6 +6,21 @@ const catchAsync = require("./../utils/catchAsync");
  * @desc            Get all tours
  * @route           GET /api/v1/tours
  * @access          Public
+
+ */
+
+const filterObj = (obj, ...allowedFields) => {
+  const newObj = {};
+  Object.keys(obj).forEach(el => {
+    if (allowedFields.includes(el)) newObj[el] = obj[el];
+  });
+  return newObj;
+};
+
+/**
+ * @desc            Get all tours
+ * @route           GET /api/v1/tours
+ * @access          Public
  */
 
 exports.getAllUsers = catchAsync(async (req, res, next) => {
@@ -26,7 +41,7 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
  * @access          Public
  */
 
-exports.updateMe = catchAsync(async(req, res, next) => {
+exports.updateMe = catchAsync(async (req, res, next) => {
   if (req.body.password || req.body.passwordConfirm) {
     return next(
       new AppError(
@@ -36,8 +51,32 @@ exports.updateMe = catchAsync(async(req, res, next) => {
     );
   }
 
-  res.status(200).json({ status: "success" });
+  const filteredBody = filterObj(req.body, "name", "email");
+  const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
+    new: true,
+    runValidators: true
+  });
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      user: updatedUser
+    }
+  });
 });
+
+exports.deleteMe = catchAsync(async(req, res, next) =>{
+  await User.findByIdAndUpdate(req.user.id, {active : false})
+
+  res.status(201).json({
+    status : 'success',
+    data : {}
+  })
+})
+
+
+
+
 
 /**
  * @desc            Get all tours
@@ -60,6 +99,14 @@ exports.getUser = catchAsync(async (req, res, next) => {
   });
 });
 
+
+
+/**
+ * @desc            Get all tours
+ * @route           GET /api/v1/tours
+ * @access          Public
+ */
+
 exports.createUser = catchAsync(async (req, res, next) => {
   const user = await User.create(req.body);
   res.status(201).json({
@@ -69,6 +116,14 @@ exports.createUser = catchAsync(async (req, res, next) => {
     }
   });
 });
+
+
+
+/**
+ * @desc            Get all tours
+ * @route           GET /api/v1/tours
+ * @access          Public
+ */
 
 exports.updateUser = catchAsync(async (req, res, next) => {
   const user = await User.findByIdAndUpdate(req.params.id, req.body, {

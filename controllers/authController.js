@@ -22,9 +22,21 @@ const signToken = id => {
   );
 };
 
-
-const createSendToken = (user , statusCode, res) =>{
+const createSendToken = (user, statusCode, res) => {
   const token = signToken(user._id);
+
+  const cookieOptions = {
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+    ),
+    httpOnly: true
+  };
+
+  if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
+  res.cookie("jwt", token, cookieOptions);
+
+  /**Remove password from output */
+  user.password = undefined;
 
   res.status(statusCode).json({
     status: "success",
@@ -33,7 +45,7 @@ const createSendToken = (user , statusCode, res) =>{
       user
     }
   });
-}
+};
 
 /**
  * @desc            Get all tours
@@ -68,7 +80,6 @@ exports.login = catchAsync(async (req, res, next) => {
 
   /**Every fine send Ok */
   createSendToken(user, 200, res);
-
 });
 
 /**
@@ -211,17 +222,16 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   createSendToken(user, 200, res);
 });
 
-
 /**
  * @desc            Get all tours
  * @route           GET /api/v1/tours
  * @access          Public
  */
-exports.updatePassword = catchAsync( async (req, res , next) =>{
-  const user = await User.findById(req.user.id).select('+password');
-  
-  if(!(await user.correctPassword(req.body.passwordCurrent, user.password))){
-    return next(new AppError('Your current password is wrong', 401));
+exports.updatePassword = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.user.id).select("+password");
+
+  if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) {
+    return next(new AppError("Your current password is wrong", 401));
   }
 
   user.password = req.body.password;
@@ -230,5 +240,3 @@ exports.updatePassword = catchAsync( async (req, res , next) =>{
 
   createSendToken(user, 200, res);
 });
-
-
