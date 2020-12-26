@@ -1,8 +1,7 @@
 const User = require("./../models/userModel");
 const AppError = require("./../utils/appError");
 const catchAsync = require("./../utils/catchAsync");
-const factory = require('./handlerFactory');
-
+const factory = require("./handlerFactory");
 
 /**
  * @desc            Get all tours
@@ -19,30 +18,24 @@ const filterObj = (obj, ...allowedFields) => {
   return newObj;
 };
 
-/**
- * @desc            Get all tours
- * @route           GET /api/v1/tours
- * @access          Public
- */
-
-exports.getAllUsers = catchAsync(async (req, res, next) => {
-  const users = await User.find();
-
-  res.status(200).json({
-    status: "success",
-    results: users.length,
-    data: {
-      users
-    }
-  });
-});
 
 /**
  * @desc            Get all tours
- * @route           GET /api/v1/tours
+ * @route           GET /api/v1/users/me
  * @access          Public
  */
 
+ exports.getMe = (req, res , next) =>{
+   req.params.id = req.user.id;
+   next();
+ }
+
+
+/**
+ * @desc            Get all tours
+ * @route           PATCH /api/v1/users/me
+ * @access          Public
+ */
 exports.updateMe = catchAsync(async (req, res, next) => {
   if (req.body.password || req.body.passwordConfirm) {
     return next(
@@ -67,37 +60,12 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.deleteMe = catchAsync(async(req, res, next) =>{
-  await User.findByIdAndUpdate(req.user.id, {active : false})
+exports.deleteMe = catchAsync(async (req, res, next) => {
+  await User.findByIdAndUpdate(req.user.id, { active: false });
 
   res.status(201).json({
-    status : 'success',
-    data : {}
-  })
-})
-
-
-
-
-
-/**
- * @desc            Get all tours
- * @route           GET /api/v1/tours
- * @access          Public
- */
-
-exports.getUser = catchAsync(async (req, res, next) => {
-  const user = await User.findById(req.params.id);
-
-  if (!user) {
-    return next(new AppError(`No user found with that ID`, 404));
-  }
-
-  res.status(200).json({
     status: "success",
-    data: {
-      user
-    }
+    data: {}
   });
 });
 
@@ -109,17 +77,28 @@ exports.getUser = catchAsync(async (req, res, next) => {
  * @access          Public
  */
 
-exports.createUser = catchAsync(async (req, res, next) => {
-  const user = await User.create(req.body);
-  res.status(201).json({
-    status: "success",
-    data: {
-      user: user
-    }
+exports.getAllUsers = factory.getAll(User);
+
+
+/**
+ * @desc            Get all tours
+ * @route           GET /api/v1/tours
+ * @access          Public
+ */
+exports.getUser = factory.getOne(User);
+
+/**
+ * @desc            Get all tours
+ * @route           GET /api/v1/tours
+ * @access          Public
+ */
+
+exports.createUser = (req, res) => {
+  res.status(500).json({
+    status: "error",
+    message: "This route is not defined! Please use signup instead"
   });
-});
-
-
+};
 
 /**
  * @desc            Get all tours
