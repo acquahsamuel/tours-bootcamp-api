@@ -1,6 +1,8 @@
 const User = require("./../models/userModel");
 const AppError = require("./../utils/appError");
 const catchAsync = require("./../utils/catchAsync");
+const factory = require('./handlerFactory');
+
 
 /**
  * @desc            Get all tours
@@ -124,24 +126,11 @@ exports.createUser = catchAsync(async (req, res, next) => {
  * @route           GET /api/v1/tours
  * @access          Public
  */
+exports.updateUser = factory.updateOne(User);
 
-exports.updateUser = catchAsync(async (req, res, next) => {
-  const user = await User.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true
-  });
-
-  if (!user) {
-    return next(new AppError(`No tour found with that ID`, 404));
-  }
-  res.status(201).json({ status: "success", data: { user } });
-});
-
-exports.deleteUser = catchAsync(async (req, res, next) => {
-  const user = await User.findByIdAndDelete(req.params.id);
-
-  if (!user) {
-    return next(new AppError(`No user found with that ID`, 404));
-  }
-  res.status(200).json({ message: "success", data: {} });
-});
+/**
+ * @desc            Get all tours
+ * @route           GET /api/v1/tours
+ * @access          Public
+ */
+exports.deleteUser = factory.deleteOne(User);

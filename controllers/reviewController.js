@@ -1,5 +1,6 @@
 const Review = require("./../models/reviewModel");
 const catchAsync = require("../utils/catchAsync");
+const factory = require('./handlerFactory');
 
 /**
  * @desc            Create all review
@@ -27,7 +28,7 @@ exports.createReview = catchAsync(async (req, res, next) => {
  * @access          Public
  */
 exports.getAllReviews = catchAsync(async (req, res, next) => {
-  const filter = {};
+  let filter = {};
   if (req.params.tourId) filter = { tour: req.params.tourId };
 
   const reviews = await Review.find(filter);
@@ -40,3 +41,5 @@ exports.getAllReviews = catchAsync(async (req, res, next) => {
     }
   });
 });
+
+exports.deleteReview = factory.deleteOne(Review);
