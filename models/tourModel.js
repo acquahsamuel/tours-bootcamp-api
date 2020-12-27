@@ -121,9 +121,15 @@ const tourSchema = new mongoose.Schema(
   }
 );
 
+
+/**Indexing to improve performance of queries  */
+tourSchema.index({ price : 1 , ratingsAverage : -1 })
+tourSchema.index({slug : 1});
+
 tourSchema.virtual("durationWeeks").get(function() {
   return this.duration / 7;
 });
+
 
 /**Virtual Populate */
 tourSchema.virtual("reviews", {
@@ -132,14 +138,13 @@ tourSchema.virtual("reviews", {
   localField: "_id"
 });
 
-/**  DOCUMENT MIDDLEWARE: runs before .save() and .create() */
+/**  document middleware: runs before .save() and .create() */
 tourSchema.pre("save", function(next) {
   this.slug = slugify(this.name, { lower: true });
   next();
 });
 
-/**@QUERY MIDDLEWARE  */
-// tourSchema.pre('find', function(next) {
+/**Query Middleware */
 tourSchema.pre(/^find/, function(next) {
   this.find({
     secretTour: {
@@ -159,7 +164,7 @@ tourSchema.pre(/^find/, function(next) {
   next();
 });
 
-/*** AGGREGATION MIDDLEWARE */
+/*** Aggregation Middleware */
 tourSchema.pre("aggregate", function(next) {
   this.pipeline().unshift({
     $match: {
