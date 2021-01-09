@@ -168,7 +168,9 @@ tourSchema.pre(/^find/, function(next) {
   next();
 });
 
-/*** Aggregation Middleware */
+
+/* Aggregation Middleware */
+/***
 tourSchema.pre("aggregate", function(next) {
   this.pipeline().unshift({
     $match: {
@@ -177,9 +179,9 @@ tourSchema.pre("aggregate", function(next) {
       }
     }
   });
-
   next();
 });
+***/
 
 tourSchema.post(/^find/, function(docs, next) {
   next();
