@@ -13,9 +13,9 @@ const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours.json`, "utf-8")
 );
 
-const users = JSON.parse(
-  fs.readFileSync(`${__dirname}/dev-data/data/users.json`, "utf-8")
-);
+// const users = JSON.parse(
+//   fs.readFileSync(`${__dirname}/dev-data/data/users.json`, "utf-8")
+// );
 
 const review = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/reviews.json`, "utf-8")
