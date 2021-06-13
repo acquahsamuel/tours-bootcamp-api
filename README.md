@@ -15,8 +15,10 @@ npm install
 ### Start Server
 
 ``
-npm start:dev
 npm start:prod
+``
+``
+npm start:dev 
 ``
 
 See [Configuration Reference](`https://www.npmjs.com/`).
