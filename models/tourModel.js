@@ -134,7 +134,6 @@ tourSchema.virtual("durationWeeks").get(function() {
 });
 
 
-
 /**Virtual Populate */
 tourSchema.virtual("reviews", {
   ref: "Review",
