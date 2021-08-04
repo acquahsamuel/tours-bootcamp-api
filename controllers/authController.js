@@ -53,7 +53,6 @@ const createSendToken = (user, statusCode, res) => {
  * @route           GET /api/v1/tours
  * @access          Public
  */
-
 exports.signup = catchAsync(async (req, res, next) => {
   const newUser = await User.create(req.body);
   createSendToken(newUser, 201, res);
