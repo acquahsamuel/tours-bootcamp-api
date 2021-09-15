@@ -7,7 +7,6 @@ const factory = require("./handlerFactory");
  * @desc            Get all tours
  * @route           GET /api/v1/tours
  * @access          Public
-
  */
 
 const filterObj = (obj, ...allowedFields) => {
