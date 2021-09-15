@@ -11,6 +11,7 @@ process.on("uncaughtException", err => {
 dotenv.config({ path: "./config/config.env" });
 const app = require("./app");
 
+// 
 connectDB();
 
 const port = process.env.PORT || 5000;
@@ -18,6 +19,7 @@ const server = app.listen(port, () => {
   console.log(`App running on port ${port}...`);
 });
 
+//
 process.on("unhandledRejection", err => {
   console.log("UNHANDLED REJECTION Shutting down");
   console.log(err.name, err.message);
@@ -25,3 +27,5 @@ process.on("unhandledRejection", err => {
     process.exit(1);
   });
 });
+
+
