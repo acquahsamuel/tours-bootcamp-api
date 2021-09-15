@@ -6,8 +6,8 @@ const xss = require("xss-clean");
 const express = require("express");
 const rateLimit = require("express-rate-limit");
 const cookieParser = require('cookie-parser');
-const mongoSanitize = require("express-mongo-sanitize");
 const AppError = require("./utils/appError");
+const mongoSanitize = require("express-mongo-sanitize");
 const globalErrorHandler = require("./controllers/errorController");
 
 const app = express();
