@@ -11,7 +11,7 @@ process.on("uncaughtException", err => {
 dotenv.config({ path: "./config/config.env" });
 const app = require("./app");
 
-// 
+// Connect to mongodb 
 connectDB();
 
 const port = process.env.PORT || 5000;
@@ -27,5 +27,7 @@ process.on("unhandledRejection", err => {
     process.exit(1);
   });
 });
+
+
 
 
