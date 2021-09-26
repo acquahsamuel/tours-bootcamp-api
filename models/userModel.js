@@ -15,14 +15,15 @@ const userSchema = new mongoose.Schema({
     required: [true, "Please tell us your email"],
     validate: [validator.isEmail, "Please provide a valid email"]
   },
-  photo: String,
-
+  photo: {
+    type : String , 
+    default : 'default.jpg'
+  },
   role: {
     type: String,
     enum: ["user", "guide", "lead-guide", "admin"],
     default: "user"
   },
-
   password: {
     type: String,
     minlength: 8,
@@ -58,7 +59,6 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre("save", async function(next) {
   if (!this.isModified("password")) return next();
-
   this.password = await bcrypt.hash(this.password, 12);
   this.passwordConfirm = undefined;
   next();
@@ -109,9 +109,6 @@ userSchema.methods.createPasswordResetToken = function() {
     .createHash("sha256")
     .update(resetToken)
     .digest("hex");
-
-  console.log({ resetToken }, this.passwordResetToken);
-
   this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
   return resetToken;
 };
