@@ -4,7 +4,6 @@ const connectDB = require("./config/db");
 const Tour = require("./models/tourModel");
 // const User = require("./models/userModel");
 const Review = require("./models/reviewModel");
-
 dotenv.config({ path: "./config/config.env" });
 
 connectDB();
@@ -13,13 +12,14 @@ const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours.json`, "utf-8")
 );
 
+const review = JSON.parse(
+  fs.readFileSync(`${__dirname}/dev-data/data/reviews.json`, "utf-8")
+);
+
 // const users = JSON.parse(
 //   fs.readFileSync(`${__dirname}/dev-data/data/users.json`, "utf-8")
 // );
 
-const review = JSON.parse(
-  fs.readFileSync(`${__dirname}/dev-data/data/reviews.json`, "utf-8")
-);
 
 // Importing data into the database
 const importData = async () => {
